@@ -142,7 +142,6 @@ namespace CMP248WorkShop2_Team6
             {
                 try
                 {
-                    ProductSupplierDB.DeleteLinksByProduct(prodId); // Delete links first to satisfy constraints
                     Product target = new Product();
                     target.ProductId = prodId;
                     target.ProdName = prodName;

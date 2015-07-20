@@ -173,6 +173,7 @@ namespace TravelData
         //Method to delete the supplier from supplier table by passing all values of supplier details
         public static bool DeleteSupplier(Supplier supplier)
         {
+            ProductSupplierDB.DeleteProductSuppliersBySupplier(supplier.SupplierId); // Delete links first to satisfy constraints
             SqlConnection connection = TravelExpertsDB.GetConnection();
             string deleteStatement = "DELETE FROM Suppliers " +
                                      "WHERE SupplierId = @SupplierId AND SupName = @SupName";

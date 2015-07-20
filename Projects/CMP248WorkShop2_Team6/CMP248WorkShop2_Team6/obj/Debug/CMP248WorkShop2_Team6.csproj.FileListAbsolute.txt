@@ -83,3 +83,4 @@ C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP2
 C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.frmSupplierMaintenance.resources
 C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.Properties.Resources.resources
 C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.csproj.GenerateResource.Cache
+C:\Users\504138\Documents\Visual Studio 2012\Projects\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.frmProductSupplierMaintenance.resources

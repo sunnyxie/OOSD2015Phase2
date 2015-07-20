@@ -148,7 +148,7 @@ namespace TravelData
         //Method to delete packages by all package details
         public static bool DeletePackage(Packages packages)
         {
-            PackageProductSupplierDB.DeletePackageProductSupplierByPackage(packages.PackageId);
+            PackageProductSupplierDB.DeletePackageProductSuppliersByPackage(packages.PackageId);
             SqlConnection connection = TravelExpertsDB.GetConnection();
             string deleteStatement =
                             "DELETE FROM Packages " +

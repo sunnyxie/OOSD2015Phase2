@@ -150,10 +150,11 @@ namespace TravelData
             return productSupplierList;
         }
 
-        //written by Linden
-        //Method to delete the product_supplier relation based on productId
-        public static bool DeleteLinksByProduct(int productId)
+        // Author: Linden
+        // Method to delete the product_supplier relation based on productId
+        public static bool DeleteProductSuppliersByProduct(int productId)
         {
+            PackageProductSupplierDB.DeletePackageProductSuppliersByProduct(productId);
             SqlConnection dbConn = TravelExpertsDB.GetConnection();
             string qryDelete = "DELETE FROM Products_Suppliers " +
                                      "WHERE ProductId = @ProductId";
@@ -173,6 +174,32 @@ namespace TravelData
                 dbConn.Close();
             }
         }
+
+        // Author: Linden
+        // Method to delete the product_supplier relation based on productId
+        public static bool DeleteProductSuppliersBySupplier(int supplierId)
+        {
+            PackageProductSupplierDB.DeletePackageProductSuppliersBySupplier(supplierId);
+            SqlConnection dbConn = TravelExpertsDB.GetConnection();
+            string qryDelete = "DELETE FROM Products_Suppliers " +
+                                     "WHERE SupplierId = @SupplierId";
+            SqlCommand cmdDelete = new SqlCommand(qryDelete, dbConn);
+            cmdDelete.Parameters.AddWithValue("@SupplierId", supplierId);
+            try
+            {
+                dbConn.Open();
+                return cmdDelete.ExecuteNonQuery() > 0;
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                dbConn.Close();
+            }
+        }
+
         //Written by Geetha -- start
 
         //Method to get productsupplier record based on productsupplierId
@@ -286,7 +313,7 @@ namespace TravelData
         //Method to delete the Productsupplier
         public static bool DeleteProductSupplier(int productSupplierId)
         {
-            PackageProductSupplierDB.DeletePackageProductSupplierByProductSupplier(productSupplierId);
+            PackageProductSupplierDB.DeletePackageProductSuppliersByProductSupplier(productSupplierId);
             SqlConnection connection = TravelExpertsDB.GetConnection();
             string deleteStatement =
                             "DELETE FROM Products_Suppliers " +

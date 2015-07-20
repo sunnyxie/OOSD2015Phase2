@@ -141,6 +141,7 @@ namespace TravelData
         //Method to delete the product from product table by passing all values of product details
         public static bool DeleteProduct(Product product)
         {
+            ProductSupplierDB.DeleteProductSuppliersByProduct(product.ProductId); // Delete links first to satisfy constraints
             SqlConnection dbConn = TravelExpertsDB.GetConnection();
             string qryDelete = "DELETE FROM Products " +
                                      "WHERE ProductId = @ProductId AND ProdName = @ProdName";
