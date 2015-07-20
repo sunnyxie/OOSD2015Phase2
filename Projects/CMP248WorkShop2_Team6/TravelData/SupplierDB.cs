@@ -1,7 +1,8 @@
 ﻿/*
- * Author: Geetha, Linden, Sunny
+ * Author: Geetha, Sunny Xie, Linden
  * Date: July 05, 2015
  * Description: File to interact with database to add, update, get and delete the supplier records
+ * Added: insert or delete a Supplier's Product list.  <Jul 20>
  * 
  * */
 using System;
@@ -231,6 +232,144 @@ namespace TravelData
                 connection.Close();
             }
             return suppliers;
+        }
+
+        // Sunny Xie added.
+        // show the products the supplier offer
+        public static List<Product> GetProductsBySupplierId(int supplierID)
+        {
+            List<Product> products = new List<Product>();
+            SqlConnection dbConn = TravelExpertsDB.GetConnection();
+            string qrySelect = " select pr.ProductId, ProdName from Products_Suppliers ps "
+            + "inner join Products pr on ps.ProductId = pr.ProductId where SupplierId =@supplierID "
+                                   + "ORDER BY ps.ProductId";
+            SqlCommand cmdSelect =
+                new SqlCommand(qrySelect, dbConn);
+            cmdSelect.Parameters.AddWithValue("@supplierID", supplierID);
+            try
+            {
+                dbConn.Open();
+                SqlDataReader dbReader = cmdSelect.ExecuteReader();
+                while (dbReader.Read())
+                {
+                    Product product = new Product();
+                    product.ProductId = Convert.ToInt32(dbReader["ProductId"]);
+                    product.ProdName = Convert.ToString(dbReader["ProdName"]);
+                    products.Add(product);
+                    /*
+                    //string[] row1 = new string[] { id.ToString(), name };
+                    int rowid = supplierDataGridView.Rows.Add(id.ToString(), name);
+
+                    if (rowid % 2 == 1)
+                    {
+                        // set background color for specific rows
+                        supplierDataGridView.Rows[rowid].DefaultCellStyle.BackColor = Color.LightBlue;
+                    }
+                    */
+                }
+
+            }
+            catch (SqlException ex)
+            {
+                //MessageBox.Show(ex.Message, ex.GetType().ToString());
+                throw ex;
+            }
+            finally
+            {
+                dbConn.Close();
+            }
+            return products;
+        }
+
+        // update the supplier 's product list. 
+        public static bool UpdateSupplierProductList(int supplierId, List<int> newProducts)
+        {
+            List<Product> oldList = GetProductsBySupplierId(supplierId);
+            List<Int32> oldProducts = new List<Int32>();
+            foreach (Product pro in oldList)
+            {
+                oldProducts.Add(pro.ProductId);
+            }
+
+            SqlConnection dbConn = TravelExpertsDB.GetConnection();
+            string qrySelect = " Insert into Products_Suppliers Values(@prid, @sid)";
+            string qryDelete = "Delete from Products_Suppliers where ProductId = @productid and SupplierId = @supplierid ";
+            foreach (int proId in newProducts)
+            {
+                bool ContainsInOldList = false;
+                foreach (int oldProId in oldProducts)
+                {
+                    if (proId == oldProId)
+                    {
+                        ContainsInOldList = true;
+                        break;
+                    }
+                }
+
+                if (!ContainsInOldList)
+                {
+
+                    SqlCommand cmdSelect =
+                        new SqlCommand(qrySelect, dbConn);
+                    cmdSelect.Parameters.AddWithValue("@prid", proId);
+                    cmdSelect.Parameters.AddWithValue("@sid", supplierId);
+                    try
+                    {
+                        dbConn.Open();
+                        cmdSelect.ExecuteNonQuery();
+
+                    }
+                    catch (SqlException ex)
+                    {
+                        //MessageBox.Show(ex.Message, ex.GetType().ToString());
+                        throw ex;
+                    }
+                    finally
+                    {
+                        dbConn.Close();
+                    }
+                }
+            }
+
+            // delete non exists Products
+            foreach (int proId in oldProducts)
+            {
+                bool ContainsInNewList = false;
+                foreach (int newProId in newProducts)
+                {
+                    if (proId == newProId)
+                    {
+                        ContainsInNewList = true;
+                        break;
+                    }
+                }
+
+                if (!ContainsInNewList)
+                {
+
+                    SqlCommand cmdSelect =
+                        new SqlCommand(qryDelete, dbConn);
+                    cmdSelect.Parameters.AddWithValue("@productid", proId);
+                    cmdSelect.Parameters.AddWithValue("@supplierid", supplierId);
+                    try
+                    {
+                        dbConn.Open();
+                        cmdSelect.ExecuteNonQuery();
+
+                    }
+                    catch (SqlException ex)
+                    {
+                        //MessageBox.Show(ex.Message, ex.GetType().ToString());
+                        throw ex;
+                    }
+                    finally
+                    {
+                        dbConn.Close();
+                    }
+                }
+            }
+
+            return true;
         }
     }
 }

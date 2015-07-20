@@ -62,3 +62,24 @@ C:\Users\691539\Documents\Visual Studio 2012\Projects\CMP248WorkShop2_Team6_FINA
 C:\Users\691539\Documents\Visual Studio 2012\Projects\CMP248WorkShop2_Team6_FINAL\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.Properties.Resources.resources
 C:\Users\691539\Documents\Visual Studio 2012\Projects\CMP248WorkShop2_Team6_FINAL\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.csproj.GenerateResource.Cache
 C:\Users\691539\Documents\Visual Studio 2012\Projects\CMP248WorkShop2_Team6_FINAL\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.frmProductSupplierMaintenance.resources
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\bin\Debug\CMP248WorkShop2_Team6.exe.config
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.exe
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.pdb
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\bin\Debug\frmAddModifySupplier.resx
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\bin\Debug\frmAddModifySupplier.cs
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\bin\Debug\frmAddModifySupplier.Designer.cs
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\bin\Debug\CMP248WorkShop2_Team6.exe
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\bin\Debug\CMP248WorkShop2_Team6.pdb
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\bin\Debug\TravelData.dll
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\bin\Debug\TravelData.pdb
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.csprojResolveAssemblyReference.cache
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.frmProductMaintenance.resources
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.frmAddModifyPackages.resources
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.frmAddModifySupplier.resources
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.frmMain.resources
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.frmPackageMaintenance.resources
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.frmPackageProductSupplier.resources
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.frmProductSupplierMaintenance.resources
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.frmSupplierMaintenance.resources
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.Properties.Resources.resources
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\CMP248WorkShop2_Team6\obj\Debug\CMP248WorkShop2_Team6.csproj.GenerateResource.Cache

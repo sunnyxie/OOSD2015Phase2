@@ -13,3 +13,8 @@ C:\Users\691539\Documents\Visual Studio 2012\Projects\CMP248WorkShop2_Team6_FINA
 C:\Users\691539\Documents\Visual Studio 2012\Projects\CMP248WorkShop2_Team6_FINAL\CMP248WorkShop2_Team6\TravelData\obj\Debug\TravelData.csprojResolveAssemblyReference.cache
 C:\Users\691539\Documents\Visual Studio 2012\Projects\CMP248WorkShop2_Team6_FINAL\CMP248WorkShop2_Team6\TravelData\obj\Debug\TravelData.dll
 C:\Users\691539\Documents\Visual Studio 2012\Projects\CMP248WorkShop2_Team6_FINAL\CMP248WorkShop2_Team6\TravelData\obj\Debug\TravelData.pdb
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\TravelData\bin\Debug\TravelData.dll
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\TravelData\bin\Debug\TravelData.pdb
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\TravelData\obj\Debug\TravelData.csprojResolveAssemblyReference.cache
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\TravelData\obj\Debug\TravelData.dll
+C:\Users\678706\Desktop\C# workshop2\CMP248WorkShop4_\CMP248WorkShop2_Team6\TravelData\obj\Debug\TravelData.pdb
