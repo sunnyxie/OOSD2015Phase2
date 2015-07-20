@@ -25,6 +25,7 @@ namespace CMP248WorkShop2_Team6
             //Application.Run(new frmProductSupplier());
             //Application.Run(new frmSupplierMaintenance());
             //Application.Run(new frmPackageMaintenance());
+            //Application.Run(new frmProductSupplierMaintenance());
             Application.Run(new frmMain());
         }
     }

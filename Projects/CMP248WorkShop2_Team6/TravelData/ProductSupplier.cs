@@ -16,10 +16,6 @@ namespace TravelData
     {
         public ProductSupplier() { }
 
-        //public Product Product { get; set;}
-
-        //public Supplier Supplier { get; set; }
-
         public int ProductSupplierId { get; set; }
 
         public int ProductId { get; set; }

@@ -111,7 +111,7 @@
             this.lblInfo.AutoSize = true;
             this.lblInfo.Location = new System.Drawing.Point(450, 25);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(46, 17);
+            this.lblInfo.Size = new System.Drawing.Size(53, 20);
             this.lblInfo.TabIndex = 6;
             this.lblInfo.Text = "label1";
             // 
@@ -119,7 +119,7 @@
             // 
             this.txtNewName.Location = new System.Drawing.Point(174, 480);
             this.txtNewName.Name = "txtNewName";
-            this.txtNewName.Size = new System.Drawing.Size(100, 23);
+            this.txtNewName.Size = new System.Drawing.Size(100, 27);
             this.txtNewName.TabIndex = 4;
             this.txtNewName.Tag = "ProdName";
             // 
@@ -138,7 +138,7 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(174, 460);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(75, 17);
+            this.label1.Size = new System.Drawing.Size(88, 20);
             this.label1.TabIndex = 3;
             this.label1.Text = "ProdName";
             // 
@@ -146,7 +146,7 @@
             // 
             this.btnExit.Location = new System.Drawing.Point(867, 509);
             this.btnExit.Name = "btnExit";
-            this.btnExit.Size = new System.Drawing.Size(75, 23);
+            this.btnExit.Size = new System.Drawing.Size(75, 31);
             this.btnExit.TabIndex = 8;
             this.btnExit.Text = "Exit";
             this.btnExit.UseVisualStyleBackColor = true;
@@ -154,9 +154,9 @@
             // 
             // frmProductMaintenance
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(954, 533);
+            this.ClientSize = new System.Drawing.Size(954, 552);
             this.Controls.Add(this.btnExit);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnModify);

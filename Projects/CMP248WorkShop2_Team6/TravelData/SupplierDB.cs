@@ -72,6 +72,7 @@ namespace TravelData
             return suppliers;
         }
 
+
         //Method to get the supplier from the supplier table
         public static Supplier GetSupplier(int supplierId)
         {
@@ -197,6 +198,39 @@ namespace TravelData
             {
                 connection.Close();
             }
+        }
+
+        // get all suppliers from Supplier database
+        public static List<Supplier> GetAllSuppliers()
+        {
+            List<Supplier> suppliers = new List<Supplier>();
+            SqlConnection connection = TravelExpertsDB.GetConnection();
+            string selectStatement =
+                            "SELECT SupplierId, SupName " +
+                            "FROM Suppliers " +
+                            "ORDER BY SupplierId"; 
+            SqlCommand selectCommand = new SqlCommand(selectStatement, connection);
+            try
+            {
+                connection.Open();
+                SqlDataReader dbReader = selectCommand.ExecuteReader();
+                while (dbReader.Read())
+                {
+                    Supplier supplier = new Supplier();
+                    supplier.SupplierId = Convert.ToInt32(dbReader["SupplierId"]);
+                    supplier.SupName = Convert.ToString(dbReader["SupName"]);
+                    suppliers.Add(supplier);
+                }
+            }
+            catch (SqlException ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                connection.Close();
+            }
+            return suppliers;
         }
     }
 }

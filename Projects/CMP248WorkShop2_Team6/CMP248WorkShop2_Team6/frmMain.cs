@@ -46,10 +46,19 @@ namespace CMP248WorkShop2_Team6
             Form productForm = new frmProductMaintenance();
             productForm.Show();
         }
+
+        private void btnPSMaintenance_Click(object sender, EventArgs e)
+        {
+            Form productSupplierForm = new frmProductSupplierMaintenance();
+            productSupplierForm.Show();
+        }
+
         //Method to close the application.
         private void btnExit_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
+
+       
     }
 }
