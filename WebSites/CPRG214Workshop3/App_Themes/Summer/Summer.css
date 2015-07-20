@@ -1,0 +1,17 @@
+﻿/* 
+ * Summer.css - Main stylesheet for Summer theme.
+ * Author: Linden
+ * Written: 2015/07/17
+ */
+body {
+    background-color: #FFFFBF;
+}
+header {
+    color: #3F3FFF;
+}
+.custForm,.packForm {
+    border-color: #0000FF;
+}
+#lblCopyright {
+    color: #00007F;
+}

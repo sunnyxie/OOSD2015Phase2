@@ -1,0 +1,22 @@
+﻿/* 
+ * Global.css - Global stylesheet for all pages.
+ * Author: Linden
+ * Written: 2015/07/17
+ */
+body {
+    background-color: #EFEFEF;
+}
+header {
+    text-align: center;
+}
+footer {position:fixed;bottom:0;right:0;height:1em;text-align:right;} /* Right Copyright */
+/*footer {position:fixed;bottom:0;width:100%;height:1em;text-align:center;}*/ /* Center Copyright */
+.custForm,.packForm {
+    border: 1px solid #000000;
+}
+#lblFormHead,#lblCustHead,#lblPackHead {
+    font-weight: bold;
+}
+#lblError {
+    color: #CC3300;
+}

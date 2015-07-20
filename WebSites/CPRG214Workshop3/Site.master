@@ -1,0 +1,26 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" ClientIDMode="Static" %>
+<%--
+    Author: Linden, Sunny, Geetha
+    Written: 2015/07/17
+--%>
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>CPRG214 Workshop - Team 6</title>
+    <link href="Styles/Global.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder id="headPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+</head>
+<body>
+    <header>
+        <h1>CPRG214 Workshop</h1>
+        <h2>Team 6</h2>
+    </header>
+    <section>
+        <asp:ContentPlaceHolder id="formPlaceHolder" runat="server"></asp:ContentPlaceHolder>
+    </section>
+    <footer>
+        <asp:Label ID="lblCopyright" runat="server">&copy; 2015, Travel Experts</asp:Label>
+    </footer>
+</body>
+</html>
