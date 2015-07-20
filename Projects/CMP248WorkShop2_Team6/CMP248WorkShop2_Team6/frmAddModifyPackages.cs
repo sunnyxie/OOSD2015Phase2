@@ -86,12 +86,12 @@ namespace CMP248WorkShop2_Team6
                     try
                     {
                         packages.PackageId = PackagesDB.AddPackage(packages);
-                        // TODO: Add links to all checked ProductSuppliers
+                        // Add links to all checked ProductSuppliers
                         foreach (DataGridViewRow row in dgvProductSupplierEdit.Rows)
                         {
                             if (Convert.ToBoolean(row.Cells["chkLink"].Value))
                             {
-                                MessageBox.Show("PSID: " + row.Cells[1].Value);
+                                //MessageBox.Show("PSID: " + row.Cells[1].Value);
                                 PackageProductSupplierDB.InsertPackageProductSupplier(packages.PackageId, Convert.ToInt32(row.Cells[1].Value));
                             }
                         }
@@ -118,7 +118,17 @@ namespace CMP248WorkShop2_Team6
                         else
                         {
                             packages = newPackages;
-                            // TODO: Get currently linked ProductSuppliers, delete any that have been unchecked, add any that have been checked
+                            // Get currently linked ProductSuppliers
+                            List<ProductSupplier> pkgLinks = ProductSupplierDB.GetProductSuppliersByPackage(packages.PackageId);
+                            foreach (DataGridViewRow row in dgvProductSupplierEdit.Rows)
+                            {
+                                // If row checked and unlinked, insert link
+                                if (Convert.ToBoolean(row.Cells["chkLink"].Value) && pkgLinks.Find(x => x.ProductSupplierId == Convert.ToInt32(row.Cells[1].Value)) == null)
+                                    PackageProductSupplierDB.InsertPackageProductSupplier(packages.PackageId, Convert.ToInt32(row.Cells[1].Value));
+                                // If row unchecked and linked, delete link
+                                if (!Convert.ToBoolean(row.Cells["chkLink"].Value) && pkgLinks.Find(x => x.ProductSupplierId == Convert.ToInt32(row.Cells[1].Value)) != null)
+                                    PackageProductSupplierDB.DeletePackageProductSupplier(packages.PackageId, Convert.ToInt32(row.Cells[1].Value));
+                            }
                             this.DialogResult = DialogResult.OK;
                         }
                     }
