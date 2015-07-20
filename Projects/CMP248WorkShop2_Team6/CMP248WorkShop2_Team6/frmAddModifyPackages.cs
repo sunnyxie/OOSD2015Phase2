@@ -30,15 +30,36 @@ namespace CMP248WorkShop2_Team6
         //On loading the modify form loads with package data and the form title displays according to add or modify
         private void frmAddModifyPackages_Load(object sender, EventArgs e)
         {
+            // Get all ProductSuppliers
+            dgvProductSupplierEdit.DataSource = ProductSupplierDB.GetProductSuppliers();
             if (addPackages)
             {
                 this.Text = "Add Package";
-                
             }
             else
             {
                 this.Text = "Modify Package";
                 this.DisplayPackages();
+                // Get all ProductSuppliers linked to this package
+                List<ProductSupplier> pkgLinks = ProductSupplierDB.GetProductSuppliersByPackage(packages.PackageId);
+                //MessageBox.Show("Selecting " + pkgLinks.Count + " of " + dgvProductSupplierEdit.Rows.Count);
+                // Iterate through linked ProductSuppliers...
+                foreach (ProductSupplier pkgLink in pkgLinks)
+                {
+                    //MessageBox.Show("PSID: " + pkgLink.ProductSupplierId);
+                    // ...Search DataGridView for each one...
+                    for (int i = 0; i < dgvProductSupplierEdit.Rows.Count; i++)
+                    {
+                        // ...Access cell directly (Using Rows passes focus to the datagridview)...
+                        if (dgvProductSupplierEdit[1,i].Value.Equals(pkgLink.ProductSupplierId))
+                        {
+                            //MessageBox.Show("Found!");
+                            // ...And set the checkbox to checked
+                            DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)dgvProductSupplierEdit[0, i];
+                            chk.Value = chk.TrueValue;
+                        }
+                    }
+                }
             }
         }
 
@@ -65,6 +86,15 @@ namespace CMP248WorkShop2_Team6
                     try
                     {
                         packages.PackageId = PackagesDB.AddPackage(packages);
+                        // TODO: Add links to all checked ProductSuppliers
+                        foreach (DataGridViewRow row in dgvProductSupplierEdit.Rows)
+                        {
+                            if (Convert.ToBoolean(row.Cells["chkLink"].Value))
+                            {
+                                MessageBox.Show("PSID: " + row.Cells[1].Value);
+                                PackageProductSupplierDB.InsertPackageProductSupplier(packages.PackageId, Convert.ToInt32(row.Cells[1].Value));
+                            }
+                        }
                         this.DialogResult = DialogResult.OK;
                     }
                     catch (Exception ex)
@@ -88,6 +118,7 @@ namespace CMP248WorkShop2_Team6
                         else
                         {
                             packages = newPackages;
+                            // TODO: Get currently linked ProductSuppliers, delete any that have been unchecked, add any that have been checked
                             this.DialogResult = DialogResult.OK;
                         }
                     }
@@ -157,6 +188,16 @@ namespace CMP248WorkShop2_Team6
             packages.PkgEndDate = (DateTime)dtpPkgEndDate.Value;
             packages.PkgStartDate = (DateTime)dtpPkgStartDate.Value;
             packages.PkgName = txtPkgName.Text;
+        }
+
+        private void dgvProductSupplierEdit_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            int rowIndex = dgvProductSupplierEdit.CurrentRow.Index;
+            DataGridViewCheckBoxCell chk = (DataGridViewCheckBoxCell)dgvProductSupplierEdit[0, rowIndex];
+            if (Convert.ToBoolean(chk.Value))
+                chk.Value = chk.FalseValue;
+            else
+                chk.Value = chk.TrueValue;
         }
 
     }

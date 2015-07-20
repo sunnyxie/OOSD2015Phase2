@@ -35,7 +35,6 @@
             System.Windows.Forms.Label pkgEndDateLabel;
             System.Windows.Forms.Label pkgNameLabel;
             System.Windows.Forms.Label pkgStartDateLabel;
-            this.packagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.txtPkgAgencyCommission = new System.Windows.Forms.TextBox();
             this.txtPkgBasePrice = new System.Windows.Forms.TextBox();
             this.txtPkgDesc = new System.Windows.Forms.TextBox();
@@ -44,12 +43,23 @@
             this.dtpPkgStartDate = new System.Windows.Forms.DateTimePicker();
             this.btnAccept = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
+            this.dgvProductSupplierEdit = new System.Windows.Forms.DataGridView();
+            this.productSupplierBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.packagesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.chkLink = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.productSupplierIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.productIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.prodNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supplierIdDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.supNameDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             pkgAgencyCommissionLabel = new System.Windows.Forms.Label();
             pkgBasePriceLabel = new System.Windows.Forms.Label();
             pkgDescLabel = new System.Windows.Forms.Label();
             pkgEndDateLabel = new System.Windows.Forms.Label();
             pkgNameLabel = new System.Windows.Forms.Label();
             pkgStartDateLabel = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductSupplierEdit)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productSupplierBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.packagesBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,10 +127,6 @@
             pkgStartDateLabel.TabIndex = 4;
             pkgStartDateLabel.Tag = "Pkg Start Date";
             pkgStartDateLabel.Text = "Pkg Start Date:";
-            // 
-            // packagesBindingSource
-            // 
-            this.packagesBindingSource.DataSource = typeof(TravelData.Packages);
             // 
             // txtPkgAgencyCommission
             // 
@@ -194,7 +200,7 @@
             // 
             // btnCancel
             // 
-            this.btnCancel.Location = new System.Drawing.Point(376, 275);
+            this.btnCancel.Location = new System.Drawing.Point(308, 275);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(2);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(56, 30);
@@ -203,11 +209,89 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
+            // dgvProductSupplierEdit
+            // 
+            this.dgvProductSupplierEdit.AllowUserToAddRows = false;
+            this.dgvProductSupplierEdit.AllowUserToDeleteRows = false;
+            this.dgvProductSupplierEdit.AutoGenerateColumns = false;
+            this.dgvProductSupplierEdit.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvProductSupplierEdit.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.chkLink,
+            this.productSupplierIdDataGridViewTextBoxColumn,
+            this.productIdDataGridViewTextBoxColumn,
+            this.prodNameDataGridViewTextBoxColumn,
+            this.supplierIdDataGridViewTextBoxColumn,
+            this.supNameDataGridViewTextBoxColumn});
+            this.dgvProductSupplierEdit.DataSource = this.productSupplierBindingSource;
+            this.dgvProductSupplierEdit.Location = new System.Drawing.Point(369, 41);
+            this.dgvProductSupplierEdit.Name = "dgvProductSupplierEdit";
+            this.dgvProductSupplierEdit.Size = new System.Drawing.Size(431, 264);
+            this.dgvProductSupplierEdit.TabIndex = 20;
+            this.dgvProductSupplierEdit.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvProductSupplierEdit_CellContentClick);
+            // 
+            // productSupplierBindingSource
+            // 
+            this.productSupplierBindingSource.DataSource = typeof(TravelData.ProductSupplier);
+            // 
+            // packagesBindingSource
+            // 
+            this.packagesBindingSource.DataSource = typeof(TravelData.Packages);
+            // 
+            // chkLink
+            // 
+            this.chkLink.FalseValue = "false";
+            this.chkLink.HeaderText = "Link";
+            this.chkLink.Name = "chkLink";
+            this.chkLink.ReadOnly = true;
+            this.chkLink.TrueValue = "true";
+            this.chkLink.Width = 30;
+            // 
+            // productSupplierIdDataGridViewTextBoxColumn
+            // 
+            this.productSupplierIdDataGridViewTextBoxColumn.DataPropertyName = "ProductSupplierId";
+            this.productSupplierIdDataGridViewTextBoxColumn.HeaderText = "ProductSupplierId";
+            this.productSupplierIdDataGridViewTextBoxColumn.Name = "productSupplierIdDataGridViewTextBoxColumn";
+            this.productSupplierIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.productSupplierIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // productIdDataGridViewTextBoxColumn
+            // 
+            this.productIdDataGridViewTextBoxColumn.DataPropertyName = "ProductId";
+            this.productIdDataGridViewTextBoxColumn.HeaderText = "ProductId";
+            this.productIdDataGridViewTextBoxColumn.Name = "productIdDataGridViewTextBoxColumn";
+            this.productIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.productIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // prodNameDataGridViewTextBoxColumn
+            // 
+            this.prodNameDataGridViewTextBoxColumn.DataPropertyName = "ProdName";
+            this.prodNameDataGridViewTextBoxColumn.HeaderText = "ProdName";
+            this.prodNameDataGridViewTextBoxColumn.Name = "prodNameDataGridViewTextBoxColumn";
+            this.prodNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.prodNameDataGridViewTextBoxColumn.Width = 200;
+            // 
+            // supplierIdDataGridViewTextBoxColumn
+            // 
+            this.supplierIdDataGridViewTextBoxColumn.DataPropertyName = "SupplierId";
+            this.supplierIdDataGridViewTextBoxColumn.HeaderText = "SupplierId";
+            this.supplierIdDataGridViewTextBoxColumn.Name = "supplierIdDataGridViewTextBoxColumn";
+            this.supplierIdDataGridViewTextBoxColumn.ReadOnly = true;
+            this.supplierIdDataGridViewTextBoxColumn.Visible = false;
+            // 
+            // supNameDataGridViewTextBoxColumn
+            // 
+            this.supNameDataGridViewTextBoxColumn.DataPropertyName = "SupName";
+            this.supNameDataGridViewTextBoxColumn.HeaderText = "SupName";
+            this.supNameDataGridViewTextBoxColumn.Name = "supNameDataGridViewTextBoxColumn";
+            this.supNameDataGridViewTextBoxColumn.ReadOnly = true;
+            this.supNameDataGridViewTextBoxColumn.Width = 200;
+            // 
             // frmAddModifyPackages
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 334);
+            this.ClientSize = new System.Drawing.Size(810, 334);
+            this.Controls.Add(this.dgvProductSupplierEdit);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnAccept);
             this.Controls.Add(pkgAgencyCommissionLabel);
@@ -226,6 +310,8 @@
             this.Name = "frmAddModifyPackages";
             this.Text = "frmAddModifyPackages";
             this.Load += new System.EventHandler(this.frmAddModifyPackages_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvProductSupplierEdit)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.productSupplierBindingSource)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.packagesBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -243,5 +329,13 @@
         private System.Windows.Forms.DateTimePicker dtpPkgStartDate;
         private System.Windows.Forms.Button btnAccept;
         private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.DataGridView dgvProductSupplierEdit;
+        private System.Windows.Forms.BindingSource productSupplierBindingSource;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn chkLink;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productSupplierIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn productIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn prodNameDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn supplierIdDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn supNameDataGridViewTextBoxColumn;
     }
 }

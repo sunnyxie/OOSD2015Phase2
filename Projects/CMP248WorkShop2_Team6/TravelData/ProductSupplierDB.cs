@@ -15,11 +15,9 @@ using System.ComponentModel;
 
 namespace TravelData
 {
-    [DataObject(true)]
     public static class ProductSupplierDB
     {
         // Author: Linden
-        [DataObjectMethod(DataObjectMethodType.Select)]
         public static List<ProductSupplier> GetProductSuppliers()
         {
             List<ProductSupplier> productSuppliers = new List<ProductSupplier>();
@@ -32,6 +30,7 @@ namespace TravelData
                 {
                     try
                     {
+                        dbConn.Open();
                         SqlDataReader dbReader = cmdSelect.ExecuteReader();
                         while (dbReader.Read())
                         {
@@ -59,7 +58,6 @@ namespace TravelData
         }
 
         // Author: Linden
-        [DataObjectMethod(DataObjectMethodType.Select)]
         public static List<ProductSupplier> GetProductSuppliersByPackage(int packageId)
         {
             List<ProductSupplier> productSuppliers = new List<ProductSupplier>();
@@ -73,6 +71,7 @@ namespace TravelData
                     cmdSelect.Parameters.AddWithValue("@PackageId", packageId);
                     try
                     {
+                        dbConn.Open();
                         SqlDataReader dbReader = cmdSelect.ExecuteReader();
                         while (dbReader.Read())
                         {
@@ -100,7 +99,6 @@ namespace TravelData
         }
         // Author: Linden
         // get all products and suppliers from joined tables
-        [DataObjectMethod(DataObjectMethodType.Select)]
         public static List<ProductSupplier> GetProductSupplierbyProdIdSupId(int productId, int supplierId)
         {
             List<ProductSupplier> productSupplierList = new List<ProductSupplier>();
@@ -154,7 +152,6 @@ namespace TravelData
 
         //written by Linden
         //Method to delete the product_supplier relation based on productId
-        [DataObjectMethod(DataObjectMethodType.Delete)]
         public static bool DeleteLinksByProduct(int productId)
         {
             SqlConnection dbConn = TravelExpertsDB.GetConnection();
@@ -179,7 +176,6 @@ namespace TravelData
         //Written by Geetha -- start
 
         //Method to get productsupplier record based on productsupplierId
-        [DataObjectMethod(DataObjectMethodType.Select)]
         public static List<ProductSupplier> GetProductSupplierByProductSupplierId(int productSupplierId)
         {
             List<ProductSupplier> productSupplierList = new List<ProductSupplier>();
@@ -223,11 +219,10 @@ namespace TravelData
         }
 
         //Method to add the product to the product table
-        [DataObjectMethod(DataObjectMethodType.Insert)]
         public static bool AddProductSupplier(int productId, int supplierId)
         {
             SqlConnection connection = TravelExpertsDB.GetConnection();
-            string qryInsert = "INSERT Products_Suppliers (ProductId, SupplierId) VALUES (@ProductId,@SupplierId)";
+            string qryInsert = "INSERT Products_Suppliers (ProductId, SupplierId) VALUES (@ProductId, @SupplierId)";
             SqlCommand cmdInsert = new SqlCommand(qryInsert, connection);
             cmdInsert.Parameters.AddWithValue("@ProductId", productId);
             cmdInsert.Parameters.AddWithValue("@SupplierId", supplierId);
@@ -251,7 +246,6 @@ namespace TravelData
         }
 
         //Method to update productsupplier by giving new and old proudctsupplier details
-        [DataObjectMethod(DataObjectMethodType.Update)]
         public static bool UpdateProductSupplier(ProductSupplier oldProductSupplier, ProductSupplier productSupplier)
         {
             SqlConnection connection = TravelExpertsDB.GetConnection();
@@ -290,9 +284,9 @@ namespace TravelData
         }
 
         //Method to delete the Productsupplier
-        [DataObjectMethod(DataObjectMethodType.Delete)]
         public static bool DeleteProductSupplier(int productSupplierId)
         {
+            PackageProductSupplierDB.DeletePackageProductSupplierByProductSupplier(productSupplierId);
             SqlConnection connection = TravelExpertsDB.GetConnection();
             string deleteStatement =
                             "DELETE FROM Products_Suppliers " +

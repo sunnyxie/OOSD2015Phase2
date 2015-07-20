@@ -69,6 +69,117 @@ namespace TravelData
             }
             //return the packageproductsupplier list
             return packageProductSupplierList;
-        }       
+        }
+        // Author: Linden
+        // Insert Package->ProductSupplier link
+        //[DataObjectMethod(DataObjectMethodType.Insert)]
+        public static bool InsertPackageProductSupplier(int packageId, int productSupplierId)
+        {
+            string qryInsert = "INSERT Packages_Products_Suppliers (PackageId, ProductSupplierId) VALUES (@PackageId, @ProductSupplierId)";
+            using (SqlConnection dbConn = TravelExpertsDB.GetConnection())
+            {
+                using (SqlCommand cmdInsert = new SqlCommand(qryInsert, dbConn))
+                {
+                    cmdInsert.Parameters.AddWithValue("@PackageId", packageId);
+                    cmdInsert.Parameters.AddWithValue("@ProductSupplierId", productSupplierId);
+                    try
+                    {
+                        dbConn.Open();
+                        return cmdInsert.ExecuteNonQuery() > 0; // return true if there were any affected rows
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        dbConn.Close();
+                    }
+                }
+            }
+        }
+        // Author: Linden
+        // Delete Package->ProductSupplier link
+        //[DataObjectMethod(DataObjectMethodType.Delete)]
+        public static bool DeletePackageProductSupplier(int packageId, int productSupplierId)
+        {
+            string qryDelete = "DELETE FROM Packages_Products_Suppliers WHERE PackageId = @PackageId AND ProductSupplierId = @ProductSupplierId";
+            using (SqlConnection dbConn = TravelExpertsDB.GetConnection())
+            {
+                using (SqlCommand cmdDelete = new SqlCommand(qryDelete, dbConn))
+                {
+                    cmdDelete.Parameters.AddWithValue("@PackageId", packageId);
+                    cmdDelete.Parameters.AddWithValue("@ProductSupplierId", productSupplierId);
+                    try
+                    {
+                        dbConn.Open();
+                        return cmdDelete.ExecuteNonQuery() > 0; // return true if there were any affected rows
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        dbConn.Close();
+                    }
+                }
+            }
+        }
+
+        // Author: Linden
+        // Delete all links for Package
+        //[DataObjectMethod(DataObjectMethodType.Delete)]
+        public static bool DeletePackageProductSupplierByPackage(int packageId)
+        {
+            string qryDelete = "DELETE FROM Packages_Products_Suppliers WHERE PackageId = @PackageId";
+            using (SqlConnection dbConn = TravelExpertsDB.GetConnection())
+            {
+                using (SqlCommand cmdDelete = new SqlCommand(qryDelete, dbConn))
+                {
+                    cmdDelete.Parameters.AddWithValue("@PackageId", packageId);
+                    try
+                    {
+                        dbConn.Open();
+                        return cmdDelete.ExecuteNonQuery() > 0; // return true if there were any affected rows
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        dbConn.Close();
+                    }
+                }
+            }
+        }
+        // Author: Linden
+        // Delete Package->ProductSupplier link
+        //[DataObjectMethod(DataObjectMethodType.Delete)]
+        public static bool DeletePackageProductSupplierByProductSupplier(int productSupplierId)
+        {
+            string qryDelete = "DELETE FROM Packages_Products_Suppliers WHERE ProductSupplierId = @ProductSupplierId";
+            using (SqlConnection dbConn = TravelExpertsDB.GetConnection())
+            {
+                using (SqlCommand cmdDelete = new SqlCommand(qryDelete, dbConn))
+                {
+                    cmdDelete.Parameters.AddWithValue("@ProductSupplierId", productSupplierId);
+                    try
+                    {
+                        dbConn.Open();
+                        return cmdDelete.ExecuteNonQuery() > 0; // return true if there were any affected rows
+                    }
+                    catch (SqlException ex)
+                    {
+                        throw ex;
+                    }
+                    finally
+                    {
+                        dbConn.Close();
+                    }
+                }
+            }
+        }
     }
 }

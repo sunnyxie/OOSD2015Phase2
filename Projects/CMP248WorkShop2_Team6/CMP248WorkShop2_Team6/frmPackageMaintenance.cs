@@ -62,6 +62,7 @@ namespace CMP248WorkShop2_Team6
             txtPkgEndDate.Text = "";
             txtPkgStartDate.Text = "";
             txtPkgName.Text = "";
+            dgvProductSupplierView.DataSource = new List<ProductSupplier>();
         }
 
         //Method to display package details
@@ -76,6 +77,7 @@ namespace CMP248WorkShop2_Team6
             txtPkgName.Text = packages.PkgName.ToString();
             btnModify.Enabled = true;
             btnDelete.Enabled = true;
+            dgvProductSupplierView.DataSource = ProductSupplierDB.GetProductSuppliersByPackage(packages.PackageId);
         }
 
         //Method to add package
