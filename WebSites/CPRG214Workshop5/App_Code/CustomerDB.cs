@@ -68,7 +68,7 @@ public class CustomerDB
             insertCommand.Parameters.AddWithValue("@CustBusPhone", customer.CustBusPhone.Trim());
             insertCommand.Parameters.AddWithValue("@CustEmail", customer.CustEmail.Trim());
             //insertCommand.Parameters.AddWithValue("@AgentId", DBNull.Value);
-           // insertCommand.Parameters.AddWithValue("@AgentId", customer.AgentId < 0 ? DBNull.Value : customer.AgentId);
+           // insertCommand.Parameters.AddWithValue("@AgentId", (customer.AgentId < 0 ? DBNull.Value : customer.AgentId));
            
             if (customer.AgentId < 0)
                 insertCommand.Parameters.AddWithValue("@AgentId", DBNull.Value);
@@ -116,7 +116,8 @@ public class CustomerDB
                     "CustCountry = @CustCountry, " +
                     "CustHomePhone = @CustHomePhone, " +
                     "CustBusPhone = @CustBusPhone, " +
-                    "CustEmail = @CustEmail " +
+                    "CustEmail = @CustEmail, " +
+                    "AgentId = @AgentId " +
                     "WHERE CustomerId = @CustomerId";
                     /*
                     "WHERE CustomerId = @original_CustomerId " +
@@ -148,6 +149,10 @@ public class CustomerDB
         updateCommand.Parameters.AddWithValue("@CustHomePhone", customer.CustHomePhone);
         updateCommand.Parameters.AddWithValue("@CustBusPhone", customer.CustBusPhone);
         updateCommand.Parameters.AddWithValue("@CustEmail", customer.CustEmail);
+        if (customer.AgentId < 0)
+            updateCommand.Parameters.AddWithValue("@AgentId", DBNull.Value);
+        else
+            updateCommand.Parameters.AddWithValue("@AgentId", customer.AgentId);
         updateCommand.Parameters.AddWithValue("@CustomerId", customer.CustomerId);
         
         //Customers old details

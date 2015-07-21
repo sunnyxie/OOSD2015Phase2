@@ -11,6 +11,10 @@ header {
 }
 footer {position:fixed;bottom:0;right:0;height:1em;text-align:right;} /* Right Copyright */
 /*footer {position:fixed;bottom:0;width:100%;height:1em;text-align:center;}*/ /* Center Copyright */
+#authName {position:fixed;top:0;right:0;height:1em;text-align:right;}
 .validator {
     color: #CC3300;
+}
+.nav {
+    list-style-type: none;
 }

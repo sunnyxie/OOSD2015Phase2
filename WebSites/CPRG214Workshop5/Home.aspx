@@ -4,12 +4,6 @@
     <link href="Styles/Home.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyPlaceHolder" Runat="Server">
-    <%
-        if(Session["CustomerId"] != null) 
-        {
-            Response.Write(@"<h5 align='right'>Hello " + Session["CustName"] + "</h5>");
-        }
-    %>
     <div style="float:left">
         <ul class="nav navbar-nav">
             <li><a href="Home.aspx">Home</a></li>

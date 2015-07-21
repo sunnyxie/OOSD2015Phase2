@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -13,22 +14,35 @@ public partial class _Default : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        //System.Threading.Thread.Sleep(10000); // For testing exception handling
         if (Session["CustomerId"] != null)
         {
             lblFormHead.Text = "Edit Customer Registration";
             btnRegister.Text = "Update";
-            btnRegister.OnClientClick = "btnUpdate_Click";
+            btnRegister.Click += new EventHandler(this.btnUpdate_Click);
             int customerId = Convert.ToInt32(Session["CustomerId"]);
             txtUsername.Enabled = false;
+            btnCheckUser.Visible = false;
+            ReqCustUsername.Enabled = false;
+            ReqCustPassword.Enabled = false;
+            ReqCustConfirmPwd.Enabled = false;
             //customer = (Customer)Session["Customer"];
-            customer = CustomerDB.GetCustomerDetails(customerId);
-            this.DisplayCustomerDetails();
+            try
+            {
+                customer = CustomerDB.GetCustomerDetails(customerId);
+                if (!IsPostBack)
+                    this.DisplayCustomerDetails();
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Error: " + ex.Message;
+            }
         }
         else
         {
             lblFormHead.Text = "New Customer Registration";
             btnRegister.Text = "Register";
-            btnRegister.OnClientClick = "btnRegister_Click";
+            btnRegister.Click += new EventHandler(this.btnRegister_Click);
         }
     }
 
@@ -49,7 +63,7 @@ public partial class _Default : System.Web.UI.Page
         txtCustHomePhone.Text = customer.CustHomePhone;
         txtCustBusPhone.Text = customer.CustBusPhone;
         txtCustEmail.Text = customer.CustEmail;
-        txtAgentId.Text = customer.AgentId.ToString() == null ? "" : customer.AgentId.ToString();
+        txtAgentId.Text = (customer.AgentId == -1 ? "" : customer.AgentId.ToString());
     }
 
 
@@ -68,19 +82,29 @@ public partial class _Default : System.Web.UI.Page
             customer.CustProv = txtCustProv.Text;
             customer.CustPostal = txtCustPostal.Text;
             customer.CustCountry = txtCustCountry.Text;
-            customer.CustHomePhone = txtCustHomePhone.Text;
-            customer.CustBusPhone = txtCustBusPhone.Text;
+            // Strip out all non-digits, then format as phone number
+            customer.CustHomePhone = Regex.Replace(Regex.Replace(txtCustHomePhone.Text, @"\D", ""), @"^((\d{3})(\d{3})(\d{4}))$", "($2)$3-$4");
+            customer.CustBusPhone = Regex.Replace(Regex.Replace(txtCustBusPhone.Text, @"\D", ""), @"^((\d{3})(\d{3})(\d{4}))$", "($2)$3-$4");
             customer.CustEmail = txtCustEmail.Text;
-            //txtAgentId.Text = "-1";
-            //customer.AgentId = Convert.ToInt32(txtAgentId.Text);
-            customer.AgentId = -1;
-            if (CustomerDB.CheckUserAvailablity(txtUsername.Text))
+            customer.AgentId = (txtAgentId.Text == "" ? -1 : Convert.ToInt32(txtAgentId));
+            try
             {
-                int customerId = CustomerDB.RegisterCustomer(customer);
-                if (customerId > 0)
-                    Response.Redirect("Confirmation.aspx");
-                else
-                    Response.Redirect("Registration.aspx");
+                if (CustomerDB.CheckUserAvailablity(txtUsername.Text))
+                {
+                    int customerId = CustomerDB.RegisterCustomer(customer);
+                    if (customerId > 0)
+                    {
+                        Session["CustomerId"] = customerId; // New user is now logged in
+                        Session["CustName"] = customer.CustFirstName + " " + customer.CustLastName;
+                        Response.Redirect("Confirmation.aspx");
+                    }
+                    else
+                        Response.Redirect("Registration.aspx");
+                }
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Error: " + ex.Message;
             }
         }
     }
@@ -106,10 +130,13 @@ public partial class _Default : System.Web.UI.Page
 
     protected void btnCheckUser_Click(object sender, EventArgs e)
     {
-       // bool userAvailablity = CustomerDB.CheckUserAvailablity(txtUsername.Text);
-        if (CustomerDB.CheckUserAvailablity(txtUsername.Text))
+        if (txtUsername.Text == "")
         {
-            lblUsernameInfo.Text = "Username available, proceed with registration.";
+            lblUsernameInfo.Text = "No username entered. Please try again.";
+        }
+        else if (CustomerDB.CheckUserAvailablity(txtUsername.Text))
+        {
+            lblUsernameInfo.Text = "Username available. Proceed with registration.";
         }
         else
         {
@@ -121,8 +148,11 @@ public partial class _Default : System.Web.UI.Page
         if (IsValid)
         {
             customer.CustUsername = txtUsername.Text;
-            customer.CustPassword = txtPassword.Text;
-            //customer.CustConfirmPassword = txtPassword.Text;
+            if (txtPassword.Text != "" && txtConfirmPassword.Text != "" && txtPassword.Text == txtConfirmPassword.Text)
+            {
+                customer.CustPassword = txtPassword.Text;
+                //customer.CustConfirmPassword = txtPassword.Text;
+            }
             customer.CustFirstName = txtCustFirstName.Text;
             customer.CustLastName = txtCustLastName.Text;
             customer.CustAddress = txtCustAddress.Text;
@@ -130,20 +160,27 @@ public partial class _Default : System.Web.UI.Page
             customer.CustProv = txtCustProv.Text;
             customer.CustPostal = txtCustPostal.Text;
             customer.CustCountry = txtCustCountry.Text;
-            customer.CustHomePhone = txtCustHomePhone.Text;
-            customer.CustBusPhone = txtCustBusPhone.Text;
+            // Strip out all non-digits, then format as phone number
+            customer.CustHomePhone = Regex.Replace(Regex.Replace(txtCustHomePhone.Text, @"\D", ""), @"^((\d{3})(\d{3})(\d{4}))$", "($2)$3-$4");
+            customer.CustBusPhone = Regex.Replace(Regex.Replace(txtCustBusPhone.Text, @"\D", ""), @"^((\d{3})(\d{3})(\d{4}))$", "($2)$3-$4");
             customer.CustEmail = txtCustEmail.Text;
             customer.CustomerId = Convert.ToInt32(Session["CustomerId"]);
-            //txtAgentId.Text = "-1";
-            //customer.AgentId = Convert.ToInt32(txtAgentId.Text);
-            customer.AgentId = -1;
-            
-            bool updateStatus = CustomerDB.UpdateCustomer(customer);
-            if (updateStatus)
-                Response.Redirect("Confirmation.aspx");
-            else
-                Response.Redirect("Registration.aspx");
-            
+            customer.AgentId = (txtAgentId.Text == "" ? -1 : Convert.ToInt32(txtAgentId.Text));
+            try
+            {
+                bool updateStatus = CustomerDB.UpdateCustomer(customer);
+                if (updateStatus)
+                {
+                    Session["CustName"] = customer.CustFirstName + " " + customer.CustLastName; // In case they changed their name
+                    Response.Redirect("Confirmation.aspx");
+                }
+                else
+                    Response.Redirect("Registration.aspx");
+            }
+            catch (Exception ex)
+            {
+                lblError.Text = "Error: " + ex.Message;
+            }
         }
     }
 }

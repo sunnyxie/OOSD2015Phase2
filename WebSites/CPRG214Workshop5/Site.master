@@ -18,6 +18,12 @@
         <h1>Travel Experts</h1>
         <h2>We'll tell you where to go!</h2>
         <br clear="all" />
+        <%
+            if(Session["CustomerId"] != null) 
+            {
+                Response.Write(@"<div id='authName'><b>Logged in as " + Session["CustName"] + "</b></div>");
+            }
+        %>
         <hr />
     </header>
     <section>   

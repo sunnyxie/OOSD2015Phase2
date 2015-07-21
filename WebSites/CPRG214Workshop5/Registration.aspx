@@ -26,6 +26,9 @@
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyPlaceHolder" Runat="Server">
+    <ul class="nav navbar-nav">
+        <li><a href="Home.aspx">Home</a></li>
+    </ul>
     <center>
     <form id="form1" runat="server" defaultbutton="btnRegister" defaultfocus="txtUsername">
     <h1 class="auto-style6">
@@ -34,25 +37,18 @@
     <table class="auto-style1">
         <tr>
             <td class="auto-style3">
-                <asp:Label ID="lblUsernameInfo" runat="server" Text="User Name : "></asp:Label>
+                <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
             </td>
             <td class="auto-style4">               
                 <asp:TextBox ID="txtUsername" runat="server" MaxLength="25"></asp:TextBox>
-                <%
-                    if(Session["CustomerId"] == null)
-                    {
-                        Response.Write(@"
-                            <asp:RequiredFieldValidator ID='ReqCustUsername' runat='server' CssClass='validator' Display='Dynamic' ErrorMessage='Username is required.' ControlToValidate='txtUsername'></asp:RequiredFieldValidator>
-                            <asp:Button ID='btnCheckUser' runat='server' OnClick='btnCheckUser_Click' Text='Check Availablity' CausesValidation='False' />
-                            <asp:Label ID='lblUsernameInfo' runat='server' AssociatedControlID='btnCheckUser' CssClass='validator'></asp:Label>
-                        ");
-                    }
-                %>
+                <asp:RequiredFieldValidator ID="ReqCustUsername" runat="server" CssClass="validator" Display="Dynamic" ErrorMessage="Username is required." ControlToValidate="txtUsername"></asp:RequiredFieldValidator>
+                <asp:Button ID="btnCheckUser" runat="server" OnClick="btnCheckUser_Click" Text="Check Availablity" CausesValidation="False" />
+                <asp:Label ID="lblUsernameInfo" runat="server" AssociatedControlID="btnCheckUser" CssClass="validator"></asp:Label>
             </td>
         </tr>
         <tr>
             <td class="auto-style2">
-                <asp:Label ID="lblPassword" runat="server" Text="Password : "></asp:Label>
+                <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
             </td>
             <td class="auto-style5">
                 <asp:TextBox ID="txtPassword" runat="server" CausesValidation="True" MaxLength="25"></asp:TextBox>
@@ -61,7 +57,7 @@
         </tr>
         <tr>
             <td class="auto-style2">
-                <asp:Label ID="lblConfirmPassword" runat="server" Text="Confirm Password : "></asp:Label>
+                <asp:Label ID="lblConfirmPassword" runat="server" Text="Confirm Password:"></asp:Label>
             </td>
             <td class="auto-style5">
                 <asp:TextBox ID="txtConfirmPassword" runat="server" CausesValidation="True" MaxLength="25"></asp:TextBox>
@@ -140,7 +136,7 @@
             <td class="auto-style5">
                 <asp:TextBox ID="txtCustHomePhone" runat="server" MaxLength="20"></asp:TextBox>
                 <asp:RequiredFieldValidator ID="ReqCustHomePhone" runat="server" ControlToValidate="txtCustHomePhone" CssClass="validator" Display="Dynamic" ErrorMessage="Home Phone is required"></asp:RequiredFieldValidator>
-                <asp:RegularExpressionValidator ID="RegExCustHomePhone" runat="server" ControlToValidate="txtCustHomePhone" Display="Dynamic" ErrorMessage="Home Phone number must contain 10 digit" CssClass="validator" ValidationExpression="^\d{10}$"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegExCustHomePhone" runat="server" ControlToValidate="txtCustHomePhone" Display="Dynamic" ErrorMessage="Home Phone Number must contain 10 digits" CssClass="validator" ValidationExpression="^\D*(\d\D*){10}$"></asp:RegularExpressionValidator>
             </td>
         </tr>
         <tr>
@@ -149,7 +145,7 @@
             </td>
             <td class="auto-style5">
                 <asp:TextBox ID="txtCustBusPhone" runat="server" MaxLength="20"></asp:TextBox>
-                <asp:RegularExpressionValidator ID="RegExCustBusPhone" runat="server" ControlToValidate="txtCustBusPhone" Display="Dynamic" ErrorMessage="Business Phone Number is not in valid format" CssClass="validator" ValidationExpression="^\d{10}$"></asp:RegularExpressionValidator>
+                <asp:RegularExpressionValidator ID="RegExCustBusPhone" runat="server" ControlToValidate="txtCustBusPhone" Display="Dynamic" ErrorMessage="Business Phone Number must contain 10 digits" CssClass="validator" ValidationExpression="^\D*(\d\D*){10}$"></asp:RegularExpressionValidator>
             </td>
         </tr>
         <tr>
@@ -166,15 +162,24 @@
                 <asp:Label ID="lblAgentId" runat="server" Text="Agent Id : "></asp:Label>
             </td>
             <td class="auto-style5">
-                <asp:TextBox ID="txtAgentId" runat="server" MaxLength="10"></asp:TextBox>
+                <asp:TextBox ID="txtAgentId" runat="server" MaxLength="10" Enabled="False"></asp:TextBox>
             </td>
         </tr>
         <tr>
             <td class="auto-style2" >
-                <asp:Button ID="btnRegister" runat="server" Text="Register" OnClick="btnRegister_Click" />
+                <asp:Button ID="btnRegister" runat="server" Text="Register" />
             </td>
             <td>
-                <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />
+                <asp:Button ID="btnClear" runat="server" Text="Reset" OnClick="btnClear_Click" CausesValidation="False" OnClientClick="document.forms[0].reset();for(var i=0; i &lt; Page_Validators.length; i++){Page_Validators[i].style.display = &quot;none&quot;;}return false;" UseSubmitBehavior="False" />
+            </td>
+            
+        </tr>
+        <tr>
+            <td class="auto-style2" >
+                &nbsp;</td>
+            <td>
+
+        <asp:Label ID="lblError" runat="server" CssClass="validator"></asp:Label>
             </td>
             
         </tr>
