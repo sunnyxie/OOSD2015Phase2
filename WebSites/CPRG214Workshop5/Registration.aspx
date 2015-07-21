@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="Registration.aspx.cs" Inherits="_Default" %>
 
-<asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
+<asp:Content ID="Content1" ContentPlaceHolderID="headPlaceHolder" Runat="Server">
     <style type="text/css">
         .auto-style1 {
             width: 44%;
@@ -25,9 +25,10 @@
     }
     </style>
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="bodyPlaceHolder" Runat="Server">
+    <center>
     <form id="form1" runat="server" defaultbutton="btnRegister" defaultfocus="txtUserName">
-    <h1 class="auto-style6">Welcome to Travel Experts</h1>
+    <h1 class="auto-style6">Customer Registration</h1>
     <table class="auto-style1">
         <tr>
             <td class="auto-style3">
@@ -169,7 +170,7 @@
             
         </tr>
     </table>
-    </form>   
-
+    </form>
+    </center>
 </asp:Content>
 

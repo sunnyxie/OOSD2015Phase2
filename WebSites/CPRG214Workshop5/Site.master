@@ -1,26 +1,30 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="Site" %>
-<%-- Author: Geetha, Linden and Sunny
-    File: Master page to customer registration--%>
+<%--
+    Site.master - Master page for Travel Experts website
+    Author: Geetha, Linden and Sunny
+    Written: 2015/07/20
+--%>
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Travel Experts</title>
-    <link href="Styles/Main.css" rel="stylesheet" />
-    <asp:ContentPlaceHolder id="head" runat="server">
-    </asp:ContentPlaceHolder>
+    <link href="Styles/Global.css" rel="stylesheet" />
+    <asp:ContentPlaceHolder id="headPlaceHolder" runat="server"></asp:ContentPlaceHolder>
 </head>
 <body>
     <header>
-
+        <img src="Images/Logo.png" align='left'/>
+        <h1>Travel Experts</h1>
+        <h2>We'll tell you where to go!</h2>
+        <br clear="all" />
+        <hr />
     </header>
     <section>   
-        <asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
-        
-        </asp:ContentPlaceHolder>    
+        <asp:ContentPlaceHolder id="bodyPlaceHolder" runat="server"></asp:ContentPlaceHolder>    
     </section>
     <footer>
-        &copy; Travel Experts
+        <asp:Label ID="lblCopyright" runat="server">&copy; 2015, Travel Experts</asp:Label>
     </footer>
 </body>
 </html>
