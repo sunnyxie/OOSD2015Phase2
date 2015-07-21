@@ -3,25 +3,25 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="headPlaceHolder" Runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyPlaceHolder" Runat="Server">
-    <form id="login" runat="server" defaultbutton="btnLogin" defaultfocus="txtUserName">
+    <form id="login" runat="server" defaultbutton="btnLogin" defaultfocus="txtUsername">
 
         <asp:Label ID="lblError" runat="server" CssClass="validator"></asp:Label>
         <table>
             <tr>
                 <td>
-                    <asp:Label ID="lblUserName" runat="server" Text="User Name : "></asp:Label>
+                    <asp:Label ID="lblUsername" runat="server" Text="Username:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtUserName" runat="server" CausesValidation="True"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="User Name is required." CssClass="validator" ControlToValidate="txtUserName" Display="Dynamic"></asp:RequiredFieldValidator>
+                    <asp:TextBox ID="txtUsername" runat="server" CausesValidation="True" MaxLength="25"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ErrorMessage="Username is required." CssClass="validator" ControlToValidate="txtUsername" Display="Dynamic"></asp:RequiredFieldValidator>
                 </td>
             </tr>
             <tr>
                 <td>
-                    <asp:Label ID="lblPassword" runat="server" Text="Password : "></asp:Label>
+                    <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
                 </td>
                 <td>
-                    <asp:TextBox ID="txtPassword" runat="server" TextMode="password" CausesValidation="True"></asp:TextBox>  
+                    <asp:TextBox ID="txtPassword" runat="server" TextMode="password" CausesValidation="True" MaxLength="25"></asp:TextBox>  
                     <asp:RequiredFieldValidator ID="ReqPassword" runat="server" ErrorMessage="Password is required" ControlToValidate="txtPassword" Display="Dynamic" CssClass="validator"></asp:RequiredFieldValidator>
                 </td>
             </tr>
@@ -30,7 +30,7 @@
                     <asp:Button ID="btnLogin" runat="server" Text="Login" OnClick="btnLogin_Click" />
                 </td>
                 <td>
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
+                    <asp:Button ID="btnClear" runat="server" Text="Clear" CausesValidation="False" OnClientClick="document.forms[0].reset();return false;" UseSubmitBehavior="False" />
                 </td>
             </tr>
             <tr aria-invalid="false">

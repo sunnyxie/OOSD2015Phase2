@@ -5,19 +5,25 @@
     color: red;
 }
 .nav {
+/*
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
+*/
   list-style-type: none;
 }
 
 .navbar-nav li a {
+/*
     line-height: 75px;
     height: 75px;
     padding-top: 0;
     font-size: 15px;
+*/
 }
 .navbar-right {
+/*
     right: 0;
     left: auto;
+*/
 }

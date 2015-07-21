@@ -13,26 +13,32 @@ public partial class _Default : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        if (Session["CustomerId"] != null)
         {
-            if (Session["CustomerId"] != null)
-            {
-                int customerId = Convert.ToInt32(Session["CustomerId"]);
-                txtUserName.Enabled = false;
-                //customer = (Customer)Session["Customer"];
-                customer = CustomerDB.GetCustomerDetails(customerId);
-                this.DisplayCustomerDetails();
-            }
+            lblFormHead.Text = "Edit Customer Registration";
+            btnRegister.Text = "Update";
+            btnRegister.OnClientClick = "btnUpdate_Click";
+            int customerId = Convert.ToInt32(Session["CustomerId"]);
+            txtUsername.Enabled = false;
+            //customer = (Customer)Session["Customer"];
+            customer = CustomerDB.GetCustomerDetails(customerId);
+            this.DisplayCustomerDetails();
+        }
+        else
+        {
+            lblFormHead.Text = "New Customer Registration";
+            btnRegister.Text = "Register";
+            btnRegister.OnClientClick = "btnRegister_Click";
         }
     }
 
     private void DisplayCustomerDetails()
     {
-        txtUserName.Text = customer.CustUserName;
-        //txtEditUserName.Text = customer.CustUserName;
-        txtPassword.Text = customer.CustPassword;
+        txtUsername.Text = customer.CustUsername;
+        //txtEditUsername.Text = customer.CustUsername;
+        txtPassword.Text = ""; // customer.CustPassword;
         //txtConfirmPassword.Text = customer.CustConfirmPassword;
-        txtConfirmPassword.Text = customer.CustPassword;
+        txtConfirmPassword.Text = ""; // customer.CustPassword;
         txtCustFirstName.Text = customer.CustFirstName;
         txtCustLastName.Text = customer.CustLastName;
         txtCustAddress.Text = customer.CustAddress;
@@ -52,9 +58,9 @@ public partial class _Default : System.Web.UI.Page
     {
         if(IsValid)
         {
-            customer.CustUserName = txtUserName.Text;
+            customer.CustUsername = txtUsername.Text;
             customer.CustPassword = txtPassword.Text;
-            customer.CustConfirmPassword = txtConfirmPassword.Text;             
+            //customer.CustConfirmPassword = txtPassword.Text;             
             customer.CustFirstName = txtCustFirstName.Text;
             customer.CustLastName = txtCustLastName.Text;
             customer.CustAddress = txtCustAddress.Text;
@@ -68,7 +74,7 @@ public partial class _Default : System.Web.UI.Page
             //txtAgentId.Text = "-1";
             //customer.AgentId = Convert.ToInt32(txtAgentId.Text);
             customer.AgentId = -1;
-            if (CustomerDB.CheckUserAvailablity(txtUserName.Text))
+            if (CustomerDB.CheckUserAvailablity(txtUsername.Text))
             {
                 int customerId = CustomerDB.RegisterCustomer(customer);
                 if (customerId > 0)
@@ -82,7 +88,7 @@ public partial class _Default : System.Web.UI.Page
     //Method to clear the customer registration form
     protected void btnClear_Click(object sender, EventArgs e)
     {
-        txtUserName.Text = "";
+        txtUsername.Text = "";
         txtPassword.Text = "";
         txtConfirmPassword.Text = "";
         txtCustFirstName.Text = "";
@@ -100,23 +106,23 @@ public partial class _Default : System.Web.UI.Page
 
     protected void btnCheckUser_Click(object sender, EventArgs e)
     {
-       // bool userAvailablity = CustomerDB.CheckUserAvailablity(txtUserName.Text);
-        if (CustomerDB.CheckUserAvailablity(txtUserName.Text))
+       // bool userAvailablity = CustomerDB.CheckUserAvailablity(txtUsername.Text);
+        if (CustomerDB.CheckUserAvailablity(txtUsername.Text))
         {
-            lblUserNameInfo.Text = "UserName already exists. Please try other.";
+            lblUsernameInfo.Text = "Username available, proceed with registration.";
         }
         else
         {
-            lblUserNameInfo.Text = "Proceed with your username";
+            lblUsernameInfo.Text = "Username already exists. Please try other.";
         }        
     }
     protected void btnUpdate_Click(object sender, EventArgs e)
     {
         if (IsValid)
         {
-            customer.CustUserName = txtUserName.Text;
+            customer.CustUsername = txtUsername.Text;
             customer.CustPassword = txtPassword.Text;
-            customer.CustConfirmPassword = txtConfirmPassword.Text;
+            //customer.CustConfirmPassword = txtPassword.Text;
             customer.CustFirstName = txtCustFirstName.Text;
             customer.CustLastName = txtCustLastName.Text;
             customer.CustAddress = txtCustAddress.Text;

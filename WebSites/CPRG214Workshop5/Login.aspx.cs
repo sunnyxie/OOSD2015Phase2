@@ -16,7 +16,7 @@ public partial class _Default : System.Web.UI.Page
     protected void btnLogin_Click(object sender, EventArgs e)
     {
         Customer login = new Customer();
-        login.CustUserName = txtUserName.Text;
+        login.CustUsername = txtUsername.Text;
         login.CustPassword = txtPassword.Text;
 
         Customer customer = CustomerDB.GetLoginCredential(login);
@@ -29,7 +29,7 @@ public partial class _Default : System.Web.UI.Page
         }
         else
         {
-            lblError.Text = "Invalid UserName or Password";
+            lblError.Text = "Invalid Username or Password";
         }
     }
 }

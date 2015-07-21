@@ -19,7 +19,7 @@ using System.Threading.Tasks;
         //addded public variables for Customers
         public int CustomerId { set; get; }
 
-        public string CustUserName { set; get; }
+        public string CustUsername { set; get; }
 
         public string CustPassword { set; get; }
 
