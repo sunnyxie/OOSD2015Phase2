@@ -18,6 +18,7 @@ using System.Web;
 public class CustomerDB
 {
    
+    //written by Geetha
     //Method to check the username availability before registering the customer
     public static bool CheckUserAvailablity(string custUserName)
     {
@@ -30,8 +31,6 @@ public class CustomerDB
         {
             connection.Open();
             int count = (int)selectCommand.ExecuteScalar();
-           // int count = int.Parse(selectCommand.ExecuteScalar().ToString());
-           // List customerList = selectCommand.ExecuteNonQuery();
             return (count == 0);
         }
         catch (SqlException ex)
@@ -44,6 +43,8 @@ public class CustomerDB
         }
     }
 
+    //written by Geetha
+    //Method to register Customer
     public static int RegisterCustomer(Customer customer)
         {
             SqlConnection connection = TravelExpertsDB.GetConnection();
@@ -94,26 +95,30 @@ public class CustomerDB
             }
         }
 
-    //Method to update package by giving new and old customer details
-    public static bool UpdateCustomer(Customer originalCustomer, Customer customer)
+    //written by Geetha
+    //Method to update Customer by giving new customer details
+    //public static bool UpdateCustomer(Customer originalCustomer, Customer customer)
+    public static bool UpdateCustomer(Customer customer)
     {
 
         SqlConnection connection = TravelExpertsDB.GetConnection();
 
         string updateStatement =
                     "UPDATE Customers SET " +
-                    "CustUserName = @CustUserName, " +
+                    //"CustUserName = @CustUserName, " +
                     "CustPassword = @CustPassword, " +
                     "CustFirstName = @CustFirstName, " +
                     "CustLastName = @CustLastName, " +
                     "CustAddress = @CustAddress, " +
                     "CustCity = @CustCity, " +
-                    "CustProv = @CustProv, " + 
-                    "CustPostal = @CustPostal, " + 
-                    "CustCountry = @CustCountry, " + 
-                    "CustHomePhone = @CustHomePhone, " + 
-                    "CustBusPhone = @CustBusPhone, " + 
-                    "CustEmail = @CustEmail " + 
+                    "CustProv = @CustProv, " +
+                    "CustPostal = @CustPostal, " +
+                    "CustCountry = @CustCountry, " +
+                    "CustHomePhone = @CustHomePhone, " +
+                    "CustBusPhone = @CustBusPhone, " +
+                    "CustEmail = @CustEmail " +
+                    "WHERE CustomerId = @CustomerId";
+                    /*
                     "WHERE CustomerId = @original_CustomerId " +
                     "AND CustUserName = @original_CustUserName " +
                     "AND CustPassword = @original_CustPassword " +
@@ -126,7 +131,7 @@ public class CustomerDB
                     "AND CustCountry = @original_CustCountry " +
                     "AND CustHomePhone = @original_CustHomePhone " +
                     "AND CustBusPhone = @original_CustBusPhone " +
-                    "AND CustEmail = @original_CustEmail";
+                    "AND CustEmail = @original_CustEmail";*/
 
         SqlCommand updateCommand = new SqlCommand(updateStatement, connection);
 
@@ -143,8 +148,10 @@ public class CustomerDB
         updateCommand.Parameters.AddWithValue("@CustHomePhone", customer.CustHomePhone);
         updateCommand.Parameters.AddWithValue("@CustBusPhone", customer.CustBusPhone);
         updateCommand.Parameters.AddWithValue("@CustEmail", customer.CustEmail);
-
+        updateCommand.Parameters.AddWithValue("@CustomerId", customer.CustomerId);
+        
         //Customers old details
+        /*
         updateCommand.Parameters.AddWithValue("@original_CustomerId", originalCustomer.CustomerId);
         updateCommand.Parameters.AddWithValue("@original_CustUserName", originalCustomer.CustUserName);
         updateCommand.Parameters.AddWithValue("@original_CustPassword", originalCustomer.CustPassword);
@@ -158,6 +165,7 @@ public class CustomerDB
         updateCommand.Parameters.AddWithValue("@original_CustHomePhone", originalCustomer.CustHomePhone);
         updateCommand.Parameters.AddWithValue("@original_CustBusPhone", originalCustomer.CustBusPhone);
         updateCommand.Parameters.AddWithValue("@original_CustEmail", originalCustomer.CustEmail);
+         * */
 
         try
         {
@@ -178,7 +186,8 @@ public class CustomerDB
         }
     }
 
-    //Method to retreive package details for the particular packageId
+    //written by Geetha
+    //Method to retreive login credentials from database
     public static Customer GetLoginCredential(Customer login)
     {
         SqlConnection connection = TravelExpertsDB.GetConnection();
@@ -193,6 +202,63 @@ public class CustomerDB
         SqlCommand selectCommand = new SqlCommand(selectStatement, connection);
         selectCommand.Parameters.AddWithValue("@CustUserName", login.CustUserName);
         selectCommand.Parameters.AddWithValue("@CustPassword", login.CustPassword);
+        try
+        {
+            connection.Open();
+            SqlDataReader reader = selectCommand.ExecuteReader(CommandBehavior.SingleRow);
+
+            if (reader.Read())
+            {
+                Customer customer = new Customer();
+                customer.CustomerId = Convert.ToInt32(reader["CustomerId"]);
+                customer.CustUserName = reader["CustUserName"].ToString();
+                customer.CustPassword = reader["CustPassword"].ToString();
+                customer.CustFirstName = reader["CustFirstName"].ToString();
+                customer.CustLastName = reader["CustLastName"].ToString();
+                customer.CustAddress = reader["CustAddress"].ToString();
+                customer.CustCity = reader["CustCity"].ToString();
+                customer.CustProv = reader["CustProv"].ToString();
+                customer.CustPostal = reader["CustPostal"].ToString();
+                customer.CustCountry = reader["CustCountry"].ToString();
+                customer.CustHomePhone = reader["CustHomePhone"].ToString();
+                customer.CustBusPhone = reader["CustBusPhone"].ToString();
+                customer.CustEmail = reader["CustEmail"].ToString();
+                if (reader["AgentId"] == null || reader["AgentId"] == DBNull.Value)
+                     customer.AgentId = -1;
+                else
+                    customer.AgentId = Convert.ToInt32(reader["AgentId"]);
+                return customer;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        catch (SqlException ex)
+        {
+            throw ex;
+        }
+        finally
+        {
+            connection.Close();
+        }
+    }
+
+    //written by Geetha
+    //Method to retreive customer details based on customerId
+    public static Customer GetCustomerDetails(int customerId)
+    {
+        SqlConnection connection = TravelExpertsDB.GetConnection();
+
+        string selectStatement =
+            "SELECT CustomerId, CustUserName, CustPassword, CustFirstName, CustLastName, CustAddress, CustCity, " +
+            "CustProv, CustPostal, CustCountry, CustHomePhone, CustBusPhone, CustEmail, AgentId " +
+            "FROM Customers " +
+            "WHERE CustomerId = @CustomerId"; 
+            
+        SqlCommand selectCommand = new SqlCommand(selectStatement, connection);
+        selectCommand.Parameters.AddWithValue("@CustomerId", customerId);
+        
         try
         {
             connection.Open();

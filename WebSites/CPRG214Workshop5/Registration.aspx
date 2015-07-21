@@ -34,11 +34,15 @@
             <td class="auto-style3">
                 <asp:Label ID="lblUserName" runat="server" Text="User Name : "></asp:Label>
             </td>
-            <td class="auto-style4">
+            <td class="auto-style4">               
                 <asp:TextBox ID="txtUserName" runat="server"></asp:TextBox>
+                <%if(Session["CustomerId"] == null) 
+                  {%>
                 <asp:RequiredFieldValidator ID="ReqCustUserName" runat="server" CssClass="validator" Display="Dynamic" ErrorMessage="UserName is required." ControlToValidate="txtUserName"></asp:RequiredFieldValidator>
                 <asp:Button ID="btnCheckUser" runat="server" OnClick="btnCheckUser_Click" Text="Check Availablity" CausesValidation="False" />
                 <asp:Label ID="lblUserNameInfo" runat="server" AssociatedControlID="btnCheckUser" CssClass="validator"></asp:Label>
+                <%}%>
+                  
             </td>
         </tr>
         <tr>
@@ -162,7 +166,14 @@
         </tr>
         <tr>
             <td class="auto-style2" >
-                <asp:Button ID="btnRegister" runat="server" Text="Register" OnClick="btnRegister_Click" />
+                <%if(Session["CustomerId"] == null) 
+                  {%>
+                    <asp:Button ID="btnRegister" runat="server" Text="Register" OnClick="btnRegister_Click" />
+                <%}
+                  else
+                  { %>
+                    <asp:Button ID="btnUpdate" runat="server" Text="Update" OnClick="btnUpdate_Click" />
+                <%}%> 
             </td>
             <td>
                 <asp:Button ID="btnClear" runat="server" Text="Clear" OnClick="btnClear_Click" />

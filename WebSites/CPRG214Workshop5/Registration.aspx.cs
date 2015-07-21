@@ -9,25 +9,30 @@ public partial class _Default : System.Web.UI.Page
 {
 
     private Customer customer = new Customer();
-    bool userAvailablity = false;
+    //bool userAvailablity = false;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (!IsPostBack)
-        //{
-        //    if (Session["Registration"] != null)
-        //    {
-        //        customer = (Customer)Session["Registration"];
-        //        this.DisplayCustomerDetails();
-        //    }
-        //}
+        if (!IsPostBack)
+        {
+            if (Session["CustomerId"] != null)
+            {
+                int customerId = Convert.ToInt32(Session["CustomerId"]);
+                txtUserName.Enabled = false;
+                //customer = (Customer)Session["Customer"];
+                customer = CustomerDB.GetCustomerDetails(customerId);
+                this.DisplayCustomerDetails();
+            }
+        }
     }
 
     private void DisplayCustomerDetails()
     {
-       txtUserName.Text = customer.CustUserName;
-      //  txtPassword.Text = customer.custPassword;
-        //   txtConfirmPassword.Text = customer.custPassword;
+        txtUserName.Text = customer.CustUserName;
+        //txtEditUserName.Text = customer.CustUserName;
+        txtPassword.Text = customer.CustPassword;
+        //txtConfirmPassword.Text = customer.CustConfirmPassword;
+        txtConfirmPassword.Text = customer.CustPassword;
         txtCustFirstName.Text = customer.CustFirstName;
         txtCustLastName.Text = customer.CustLastName;
         txtCustAddress.Text = customer.CustAddress;
@@ -38,7 +43,7 @@ public partial class _Default : System.Web.UI.Page
         txtCustHomePhone.Text = customer.CustHomePhone;
         txtCustBusPhone.Text = customer.CustBusPhone;
         txtCustEmail.Text = customer.CustEmail;
-        txtAgentId.Text = customer.AgentId.ToString();
+        txtAgentId.Text = customer.AgentId.ToString() == null ? "" : customer.AgentId.ToString();
     }
 
 
@@ -103,7 +108,36 @@ public partial class _Default : System.Web.UI.Page
         else
         {
             lblUserNameInfo.Text = "Proceed with your username";
+        }        
+    }
+    protected void btnUpdate_Click(object sender, EventArgs e)
+    {
+        if (IsValid)
+        {
+            customer.CustUserName = txtUserName.Text;
+            customer.CustPassword = txtPassword.Text;
+            customer.CustConfirmPassword = txtConfirmPassword.Text;
+            customer.CustFirstName = txtCustFirstName.Text;
+            customer.CustLastName = txtCustLastName.Text;
+            customer.CustAddress = txtCustAddress.Text;
+            customer.CustCity = txtCustCity.Text;
+            customer.CustProv = txtCustProv.Text;
+            customer.CustPostal = txtCustPostal.Text;
+            customer.CustCountry = txtCustCountry.Text;
+            customer.CustHomePhone = txtCustHomePhone.Text;
+            customer.CustBusPhone = txtCustBusPhone.Text;
+            customer.CustEmail = txtCustEmail.Text;
+            customer.CustomerId = Convert.ToInt32(Session["CustomerId"]);
+            //txtAgentId.Text = "-1";
+            //customer.AgentId = Convert.ToInt32(txtAgentId.Text);
+            customer.AgentId = -1;
+            
+            bool updateStatus = CustomerDB.UpdateCustomer(customer);
+            if (updateStatus)
+                Response.Redirect("Confirmation.aspx");
+            else
+                Response.Redirect("Registration.aspx");
+            
         }
-        //return userAvailability;
     }
 }

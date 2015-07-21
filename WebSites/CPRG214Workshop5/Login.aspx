@@ -4,6 +4,8 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="bodyPlaceHolder" Runat="Server">
     <form id="login" runat="server" defaultbutton="btnLogin" defaultfocus="txtUserName">
+
+        <asp:Label ID="lblError" runat="server" CssClass="validator"></asp:Label>
         <table>
             <tr>
                 <td>
@@ -31,36 +33,12 @@
                     <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
                 </td>
             </tr>
-        </table>
-        <%-- 
-        <asp:Table ID="Table1" runat="server" Width="517px">
-            <asp:TableRow>
-                <asp:TableCell>
-                    <asp:Label ID="lblUserName" runat="server" Text="User Name : "></asp:Label>
-                </asp:TableCell>
-                <asp:TableCell>
-                    <asp:TextBox ID="txtUserName" runat="server" CausesValidation="True"></asp:TextBox>
-                    <asp:RequiredFieldValidator ID="ReqUserName" runat="server" ErrorMessage="User Name is required." CssClass="validator" ControlToValidate="txtUserName" Display="Dynamic"></asp:RequiredFieldValidator>
-                </asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow>
-                <asp:TableCell>
-                    <asp:Label ID="lblPassword" runat="server" Text="Password : "></asp:Label>
-                </asp:TableCell>
-                <asp:TableCell>
-                    <asp:TextBox ID="txtPassword" runat="server" TextMode="password" CausesValidation="True"></asp:TextBox>  
-                    <asp:RequiredFieldValidator ID="ReqPassword" runat="server" ErrorMessage="Password is required" ControlToValidate="txtPassword" Display="Dynamic" CssClass="validator"></asp:RequiredFieldValidator>                
-                </asp:TableCell>
-            </asp:TableRow>
-            <asp:TableRow>
-                <asp:TableCell>
-                    <asp:Button ID="btnLogin" runat="server" Text="Login" />
-                </asp:TableCell>
-                <asp:TableCell>
-                    <asp:Button ID="btnCancel" runat="server" Text="Cancel" />
-                </asp:TableCell>
-            </asp:TableRow>
-        </asp:Table>--%>
+            <tr aria-invalid="false">
+                <td>
+                    <asp:HyperLink ID="HyperLink1" runat="server" NavigateUrl="~/Registration.aspx">Register here</asp:HyperLink>  
+                </td>                  
+            </tr>
+        </table>       
     </form>
 </asp:Content>
 

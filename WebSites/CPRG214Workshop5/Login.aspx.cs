@@ -22,9 +22,14 @@ public partial class _Default : System.Web.UI.Page
         Customer customer = CustomerDB.GetLoginCredential(login);
         if (customer != null)
         {
+            Session["CustomerId"] = customer.CustomerId;
             Session["Customer"] = customer;
-            Response.Redirect("Confirmation.aspx");
+            Session["CustName"] = customer.CustFirstName + " " + customer.CustLastName;
+            Response.Redirect("Home.aspx");
         }
-
+        else
+        {
+            lblError.Text = "Invalid UserName or Password";
+        }
     }
 }
