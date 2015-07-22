@@ -5,4 +5,4 @@ ALTER TABLE Customers ADD CustPassword nvarchar(25)
 UPDATE Customers SET CustUsername='m', CustPassword='m' WHERE CustomerId=135  
 UPDATE Bookings SET PackageId=(ABS(CHECKSUM(NewId())) % 4) + 1  
 # ---------
-There is some Deleting changed between table Packages and suppliers, Products(Linking Relations). so do not use SQL-S delete command directly.
+There is some Deleting changed between table Packages, Suppliers, Products (Linking Relations). so do not use SQL-S delete command directly. Lin Created some functions will process the ForeignKey problems. 
