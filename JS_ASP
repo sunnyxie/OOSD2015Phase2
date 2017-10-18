@@ -1,0 +1,32 @@
+ <asp:TextBox ID="txtUnits" TabIndex="34" runat="server" Height="18px" Width="64px" Style="text-align: right;" AutoPostBack="False"
+ CssClass="TextboxHeight" onkeypress="return numeralsOnly(event);" onblur="OnClientCountBlur();"></asp:TextBox>
+
+     function OnClientCountBlur() {
+            var d1 = document.getElementById('<%=txtUnits.ClientID %>').value;
+            var d2 = document.getElementById('<%=txtUnitCost.ClientID %>').value;
+            // alert(d1 + ' aa - ' + d2)
+            if (d1 == null || d1 == 0 || d1 == '' || d1 == 'undefined' || d2 == null || d2 == 0 || d2 == '' || d2 == 'undefined') {
+                document.getElementById('<%=txtAmount.ClientID %>').value = '0.00';
+                document.getElementById('<%=txtUnits.ClientID %>').value =  parseInt(d1).toFixed(2);
+
+            } else {
+                document.getElementById('<%=txtAmount.ClientID%>').value = (parseFloat(d2) * parseInt(d1)).toFixed(2);
+                document.getElementById('<%=txtUnits.ClientID %>').value =  parseInt(d1).toFixed(2);
+            }
+        }
+        
+        
+          function clearSelection(wdd_name) {
+            var dropDown = $find(wdd_name);
+            var selectedList = dropDown.get_selectedItems(); //get_items().getItem(dropDown.get_selectedItemIndex());
+
+            for (var i = 0; i < selectedList.length; i++) {
+                if (selectedList[i] != null) {
+                    selectedList[i].unselect();
+                    selectedList[i].inactivate();
+                }
+            }
+            dropDown.set_currentValue("", false);
+
+            return true;
+        }
