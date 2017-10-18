@@ -1,4 +1,8 @@
- <asp:TextBox ID="txtUnits" TabIndex="34" runat="server" Height="18px" Width="64px" Style="text-align: right;" AutoPostBack="False"
+   SELECT *
+  from ( select a.*, max(EXPNS_ID) over () as max_created       from EXPENSE a )
+ where EXPNS_ID = max_created;
+ 
+<asp:TextBox ID="txtUnits" TabIndex="34" runat="server" Height="18px" Width="64px" Style="text-align: right;" AutoPostBack="False"
  CssClass="TextboxHeight" onkeypress="return numeralsOnly(event);" onblur="OnClientCountBlur();"></asp:TextBox>
 
      function OnClientCountBlur() {
